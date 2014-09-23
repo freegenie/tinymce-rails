@@ -53,8 +53,10 @@ module TinyMCE
       def move_asset(src, dest)
         src = File.join(@target, src)
         dest = File.join(@target, dest)
-        
-        FileUtils.mv(src, dest, :force => true) if src != dest && File.exists?(src)
+         
+        # TODO: understand why this is done
+        FileUtils.rm(dest) if File.exists?(dest)
+        FileUtils.cp(src, dest) if src != dest && File.exists?(src)
       end
       
       def index_asset?(asset)
